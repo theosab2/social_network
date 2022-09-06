@@ -57,9 +57,17 @@ const Post: React.FC<PostProps> = (props) => {
         <h2>{title}</h2>
         <p>By {props?.author?.name || 'Unknown author'}</p>
         <ReactMarkdown children={props.content} />
-        {!props.published && userHasValidSession && postBelongsToUser && (
+        {
+        !props.published && userHasValidSession && postBelongsToUser && (
           <button onClick={() => publishPost(props.id)}>Publish</button>
-        )}
+        )
+        }
+        {
+          userHasValidSession && postBelongsToUser && (
+            <button onClick={() => deletePost(props.id)}>Delete</button>
+          )
+        }
+        
       </div>
       <style jsx>{`
         .page {
@@ -72,7 +80,7 @@ const Post: React.FC<PostProps> = (props) => {
         }
 
         button {
-          background: #ececec;
+          background: #ccc;
           border: 0;
           border-radius: 0.125rem;
           padding: 1rem 2rem;
